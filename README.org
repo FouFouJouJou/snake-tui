@@ -1,0 +1,1 @@
+#+TITLE: Typical snake game using ncurses for terminal user interface
