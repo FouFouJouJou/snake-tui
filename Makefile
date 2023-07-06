@@ -13,16 +13,16 @@ list_test: $(BUILD_DIR)/list_test
 	 @$(BUILD_DIR)/list_test
 
 $(BUILD_DIR)/list_test: $(OBJECT_DIR)/list_test.o $(OBJECT_DIR)/list.o
-	 @echo linking list test
-	 $(CC) $(OBJECT_DIR)/list_test.o $(OBJECT_DIR)/list.o -o $(BUILD_DIR)/list_test 
+	 @$(CC) $(OBJECT_DIR)/list_test.o $(OBJECT_DIR)/list.o -o $(BUILD_DIR)/list_test 
+	 @echo [100%] linking list test
 
 $(OBJECT_DIR)/list_test.o: $(TEST)/list_test.c
-	 @echo compiling list test
-	 $(CC) $(CFLAGS) $(C_INCLUDE_FLAGS) $(C_GNU_SOURCE_FLAG) -c $(TEST)/list_test.c -o $(OBJECT_DIR)/list_test.o
+	 @$(CC) $(CFLAGS) $(C_INCLUDE_FLAGS) $(C_GNU_SOURCE_FLAG) -c $(TEST)/list_test.c -o $(OBJECT_DIR)/list_test.o
+	 @echo [100%] compiling list test
 
 $(OBJECT_DIR)/list.o: $(SOURCE)/list.c
-	 @echo compiling list
-	 $(CC) $(CFLAGS) $(C_INCLUDE_FLAGS) $(C_GNU_SOURCE_FLAG) -c $(SOURCE)/list.c -o $(OBJECT_DIR)/list.o
+	 @$(CC) $(CFLAGS) $(C_INCLUDE_FLAGS) $(C_GNU_SOURCE_FLAG) -c $(SOURCE)/list.c -o $(OBJECT_DIR)/list.o
+	 @echo [100%] compiling list
 
 
 clean:
