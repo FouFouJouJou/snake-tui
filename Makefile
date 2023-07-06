@@ -9,10 +9,33 @@ C_INCLUDE_FLAGS:=-I$(INCLUDE_DIR)
 C_GNU_SOURCE_FLAG:=-D_GNU_SOURCE
 MAIN_EXECUTABLE:=$(BUILD_DIR)/snake-tui
 
+snake_test: $(BUILD_DIR)/snake_test
+	 @echo running snake test
+	 @$(BUILD_DIR)/snake_test
+	 @echo exit code: $$?
+
 list_test: $(BUILD_DIR)/list_test
 	 @echo running list test
 	 @$(BUILD_DIR)/list_test
 	 @echo exit code: $$?
+
+$(BUILD_DIR)/snake_test: $(OBJECT_DIR)/snake.o $(OBJECT_DIR)/list.o $(OBJECT_DIR)/position.o $(OBJECT_DIR)/snake_test.o
+	 $(CC) $(OBJECT_DIR)/snake_test.o $(OBJECT_DIR)/snake.o $(OBJECT_DIR)/list.o $(OBJECT_DIR)/position.o -o $(BUILD_DIR)/snake_test
+	 @echo [100%] linking snake test
+
+$(OBJECT_DIR)/snake_test.o: $(TEST)/snake_test.c
+	 @$(CC) $(CFLAGS) $(C_INCLUDE_FLAGS) $(C_GNU_SOURCE_FLAG) -c $(TEST)/snake_test.c -o $(OBJECT_DIR)/snake_test.o
+	 @echo [100%] compiling snake test
+
+$(OBJECT_DIR)/position.o: $(SOURCE)/position.c
+	 @$(CC) $(CFLAGS) $(C_INCLUDE_FLAGS) $(C_GNU_SOURCE_FLAG) -c $(SOURCE)/position.c -o $(OBJECT_DIR)/position.o
+	 @echo [100%] compiling position
+
+
+$(OBJECT_DIR)/snake.o: $(SOURCE)/snake.c
+	 @$(CC) $(CFLAGS) $(C_INCLUDE_FLAGS) $(C_GNU_SOURCE_FLAG) -c $(SOURCE)/snake.c -o $(OBJECT_DIR)/snake.o
+	 @echo [100%] compiling snake
+
 
 $(BUILD_DIR)/list_test: $(OBJECT_DIR)/list_test.o $(OBJECT_DIR)/list.o
 	 @$(CC) $(OBJECT_DIR)/list_test.o $(OBJECT_DIR)/list.o -o $(BUILD_DIR)/list_test 
