@@ -1,15 +1,7 @@
 #ifndef __SNAKE_H__
 #define __SNAKE_H__
 #include <stdint.h>
-
-struct Position {
-  uint32_t x,y;
-};
-
-struct Food {
-  struct Position pos;
-  char shape;
-};
+#include <position.h>
 
 struct SnakePart {
   struct Position pos;
