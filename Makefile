@@ -25,16 +25,16 @@ $(BUILD_DIR)/snake_test: $(OBJECT_DIR)/snake.o $(OBJECT_DIR)/list.o $(OBJECT_DIR
 	 @echo [100%] linking snake test
 
 $(OBJECT_DIR)/snake_test.o: $(TEST)/snake_test.c
-	 @ $(COMPILE) -c $(TEST)/snake_test.c -o $(OBJECT_DIR)/snake_test.o
+	 @ $(COMPILE) $(TEST)/snake_test.c -o $(OBJECT_DIR)/snake_test.o
 	 @echo [100%] compiling snake test
 
 $(OBJECT_DIR)/position.o: $(SOURCE)/position.c
-	 @$(COMPILE) -c $(SOURCE)/position.c -o $(OBJECT_DIR)/position.o
+	 @$(COMPILE) $(SOURCE)/position.c -o $(OBJECT_DIR)/position.o
 	 @echo [100%] compiling position
 
 
 $(OBJECT_DIR)/snake.o: $(SOURCE)/snake.c
-	 @$(COMPILE) -c $(SOURCE)/snake.c -o $(OBJECT_DIR)/snake.o
+	 @$(COMPILE) $(SOURCE)/snake.c -o $(OBJECT_DIR)/snake.o
 	 @echo [100%] compiling snake
 
 
@@ -43,11 +43,11 @@ $(BUILD_DIR)/list_test: $(OBJECT_DIR)/list_test.o $(OBJECT_DIR)/list.o
 	 @echo [100%] linking list test
 
 $(OBJECT_DIR)/list_test.o: $(TEST)/list_test.c
-	 @$(COMPILE) -c $(TEST)/list_test.c -o $(OBJECT_DIR)/list_test.o
+	 @$(COMPILE) $(TEST)/list_test.c -o $(OBJECT_DIR)/list_test.o
 	 @echo [100%] compiling list test
 
 $(OBJECT_DIR)/list.o: $(SOURCE)/list.c
-	 @$(COMPILE) -c $(SOURCE)/list.c -o $(OBJECT_DIR)/list.o
+	 @$(COMPILE) $(SOURCE)/list.c -o $(OBJECT_DIR)/list.o
 	 @echo [100%] compiling list
 
 
