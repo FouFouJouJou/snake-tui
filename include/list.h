@@ -19,6 +19,6 @@ void push(struct List *list, struct Node *node);
 void append(struct List *list, struct Node *node);
 struct Node *pop_tail(struct List *list);
 void free_list(struct List *list);
-void printf_list(struct List list);
+void printf_list(struct List list, (void)(*print)(struct Node));
 void printf_node(struct Node node);
 #endif
