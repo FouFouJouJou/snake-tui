@@ -10,7 +10,9 @@ C_GNU_SOURCE_FLAG:=-D_GNU_SOURCE
 MAIN_EXECUTABLE:=$(BUILD_DIR)/snake-tui
 
 list_test: $(BUILD_DIR)/list_test
+	 @echo running list test
 	 @$(BUILD_DIR)/list_test
+	 @echo exit code: $$?
 
 $(BUILD_DIR)/list_test: $(OBJECT_DIR)/list_test.o $(OBJECT_DIR)/list.o
 	 @$(CC) $(OBJECT_DIR)/list_test.o $(OBJECT_DIR)/list.o -o $(BUILD_DIR)/list_test 
