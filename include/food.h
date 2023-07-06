@@ -7,4 +7,5 @@ struct Food {
   char shape;
 };
 
+struct Food make_food(uint32_t x, uint32_t y, char shape);
 #endif
