@@ -3,6 +3,12 @@
 #include <stdint.h>
 #include <position.h>
 
+enum Direction {
+  UP=0
+  ,DOWN
+  ,RIGHT
+  ,LEFT
+};
 struct SnakePart {
   struct Position pos;
   char shape;
