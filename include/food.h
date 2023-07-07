@@ -8,4 +8,5 @@ struct Food {
 };
 
 struct Food make_food(uint32_t x, uint32_t y, char shape);
+struct Food make_random_food(char shape);
 #endif
