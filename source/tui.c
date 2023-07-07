@@ -5,16 +5,21 @@
 #include <snake.h>
 #include <tui.h>
 
+bool collide(struct Position pos1, struct Position pos2) {
+  return pos1.x == pos2.x && pos1.y == pos2.y;
+}
+
 struct Game *make_game() {
   struct Game *game=malloc(sizeof(struct Game));
   game->snake=make_snake(20,20,'#');
-  //game->food=make_random_food('|');
-  game->width=100;
-  game->height=100;
+  game->food=make_food(22,30,'@');
+  game->width=200;
+  game->height=200;
   game->done=false;
   game->direction = RIGHT;
   return game;
 }
+
 struct Game *init() {
   initscr();
   noecho();
@@ -45,20 +50,26 @@ void update(struct Game *game) {
   }
   game->direction=input_to_direction(key, game->direction);
   move_snake(game->snake, game->direction);
-  //collistion detection with the food
-  //if(snake_head_collide(game->food.pos)) {
-  //  grow(game->snake, game->direction);
-  //}
+  if(collide(game->food.pos, get_head_part(game->snake)->pos)) {
+    grow(game->snake, game->direction);
+    game->food=make_food(20,20,'@');
+  }
 }
 
 void render_part(void *data) {
   struct SnakePart *snake_part=(struct SnakePart *)data;
   move(snake_part->pos.y, snake_part->pos.x);
   addch(snake_part->shape);
-  refresh();
 }
 
+void render_food(struct Food food) {
+  move(food.pos.y, food.pos.x);
+  addch(food.shape);
+}
+
+
 void render(struct Game *game) {
+  render_food(game->food);
   printf_snake(*(game->snake), render_part);
   refresh();
 }
