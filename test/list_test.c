@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <list.h>
 
-void printf_int_node(struct Node node) {
-  printf("%d -> ", *((int *)(node.value)));
+void printf_int_node(void *data) {
+  printf("%d", *((int *)(data)));
 }
 
 int main(void) {

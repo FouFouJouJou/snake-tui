@@ -9,6 +9,7 @@ enum Direction {
   ,RIGHT
   ,LEFT
 };
+
 struct SnakePart {
   struct Position pos;
   char shape;
@@ -19,10 +20,11 @@ struct Snake {
   uint32_t score;
 };
 
+char *direction_to_string(enum Direction direction);
 struct Snake *make_snake(uint32_t x, uint32_t y, char shape);
 struct SnakePart *get_head_part(struct Snake *snake);
 void grow(struct Snake *snake, enum Direction direction);
 void move_snake(struct Snake *snake, enum Direction direction);
-void printf_snake(struct Snake snake);
+void printf_snake(struct Snake snake, void(*print)(void *));
 void free_snake();
 #endif

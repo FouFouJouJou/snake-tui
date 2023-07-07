@@ -35,19 +35,15 @@ void grow(struct Snake *snake, enum Direction direction) {
     get_head_part(snake)->pos;
   switch(direction) {
     case UP: 
-      printf("growing UP\n");
       current_pos.y-=1;
       break;
     case DOWN: 
-      printf("growing DOWN\n");
       current_pos.y+=1;
       break;
     case LEFT: 
-      printf("growing LEFT\n");
       current_pos.x-=1;
       break;
     case RIGHT: 
-      printf("growing RIGHT\n");
       current_pos.x+=1;
       break;
   }
@@ -67,19 +63,15 @@ void move_snake(struct Snake *snake, enum Direction direction) {
     get_head_part(snake)->pos;
   switch(direction) {
     case UP: 
-      printf("moving UP\n");
       current_pos.y-=1;
       break;
     case DOWN: 
-      printf("moving DOWN\n");
       current_pos.y+=1;
       break;
     case LEFT: 
-      printf("moving LEFT\n");
       current_pos.x-=1;
       break;
     case RIGHT: 
-      printf("moving RIGHT\n");
       current_pos.x+=1;
       break;
   }
@@ -87,15 +79,20 @@ void move_snake(struct Snake *snake, enum Direction direction) {
   get_head_part(snake)->pos=current_pos;
 }
 
-void printf_snake_part_node(struct Node node) {
-  struct SnakePart *snake_part = (struct SnakePart *)(node.value);
-  printf("(%i, %i, %c)", snake_part->pos.x, snake_part->pos.y, snake_part->shape);
-}
-
-void printf_snake(struct Snake snake) {
-  printf_list(*(snake.parts),  printf_snake_part_node);
+void printf_snake(struct Snake snake, void(*print)(void*)) {
+  printf_list(*(snake.parts), print);
 }
 void free_snake(struct Snake *snake) {
   free_list(snake->parts);  
   free(snake);
+}
+
+char *direction_to_string(enum Direction direction) {
+  switch(direction) {
+    case UP: return "UP";
+    case DOWN: return "DOWN";
+    case LEFT: return "LEFT";
+    case RIGHT: return "RIGHT";
+  }
+  return 0;
 }

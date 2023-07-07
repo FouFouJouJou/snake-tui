@@ -22,6 +22,6 @@ void append_value(struct List *list, void *value, size_t size);
 struct Node *pop_tail(struct List *list);
 void pop_tail_and_append(struct List *list);
 void free_list(struct List *list);
-void printf_list(struct List list, void(*print)(struct Node));
+void printf_list(struct List list, void(*print)(void *value));
 void *get_head_value(struct List *list);
 #endif
