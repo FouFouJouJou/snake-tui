@@ -10,6 +10,20 @@ C_GNU_SOURCE_FLAG:=-D_GNU_SOURCE
 MAIN_EXECUTABLE:=$(BUILD_DIR)/snake-tui
 COMPILE:=$(CC) $(CFLAGS) $(C_GNU_SOURCE_FLAG) $(C_INCLUDE_FLAGS) -c
 
+run: $(MAIN_EXECUTABLE)
+	 @echo running main
+	 @$(MAIN_EXECUTABLE)
+	 @echo exit code: $$?
+
+$(MAIN_EXECUTABLE): $(OBJECT_DIR)/main.o $(OBJECT_DIR)/snake.o\
+                    $(OBJECT_DIR)/ui.o $(OBJECT_DIR)/food.o \
+                    $(OBJECT_DIR)/list.o $(OBJECT_DIR)/position.o
+	 @echo linking main
+	 @$(CC) $(OBJECT_DIR)/main.o $(OBJECT_DIR)/snake.o\
+         $(OBJECT_DIR)/ui.o $(OBJECT_DIR)/food.o \
+         $(OBJECT_DIR)/list.o $(OBJECT_DIR)/position.o \
+   -o $(MAIN_EXECUTABLE)
+
 snake_test: $(BUILD_DIR)/snake_test
 	 @echo running snake test
 	 @$(BUILD_DIR)/snake_test
@@ -20,12 +34,29 @@ list_test: $(BUILD_DIR)/list_test
 	 @$(BUILD_DIR)/list_test
 	 @echo exit code: $$?
 
+
+
+$(OBJECT_DIR)/main.o: $(SOURCE)/main.c
+	 @echo compiling main
+	 @$(COMPILE) $(SOURCE)/main.c -o $(OBJECT_DIR)/main.o
+
+
+$(OBJECT_DIR)/ui.o: 
+	 @echo compiling ui
+	 @$(COMPILE) $(SOURCE)/ui.c -o $(OBJECT_DIR)/ui.o
+
+
+$(OBJECT_DIR)/food.o: 
+	 @echo compiling food
+	 @$(COMPILE) $(SOURCE)/food.c -o $(OBJECT_DIR)/food.o
+
+
 $(BUILD_DIR)/snake_test: $(OBJECT_DIR)/snake.o $(OBJECT_DIR)/list.o $(OBJECT_DIR)/position.o $(OBJECT_DIR)/snake_test.o
 	 $(CC) $(OBJECT_DIR)/snake_test.o $(OBJECT_DIR)/snake.o $(OBJECT_DIR)/list.o $(OBJECT_DIR)/position.o -o $(BUILD_DIR)/snake_test
 	 @echo [100%] linking snake test
 
 $(OBJECT_DIR)/snake_test.o: $(TEST)/snake_test.c
-	 @ $(COMPILE) $(TEST)/snake_test.c -o $(OBJECT_DIR)/snake_test.o
+	 @$(COMPILE) $(TEST)/snake_test.c -o $(OBJECT_DIR)/snake_test.o
 	 @echo [100%] compiling snake test
 
 $(OBJECT_DIR)/position.o: $(SOURCE)/position.c
