@@ -62,7 +62,7 @@ struct SnakePart *get_head_part(struct Snake *snake) {
 }
 
 
-void move(struct Snake *snake, enum Direction direction) {
+void move_snake(struct Snake *snake, enum Direction direction) {
   struct Position current_pos =
     get_head_part(snake)->pos;
   switch(direction) {
