@@ -11,6 +11,11 @@ struct Node *make_empty_node() {
   return node;
 }
 
+
+void *get_head_value(struct List *list) {
+  return list->head->value;
+}
+
 struct Node *make_node(void *value, size_t size) {
   struct Node *node=make_empty_node();
   node->value=malloc(size);
@@ -29,6 +34,14 @@ struct List *make_empty_list() {
   return list;
 }
 
+void append_value(struct List *list, void *data, size_t size) {
+  append(list, make_node(data, size));  
+}
+
+void push_value(struct List *list, void *data, size_t size) {
+  push(list, make_node(data, size));  
+}
+
 void push(struct List *list, struct Node *node) {
   if(list->head == 0) {
     list->head=malloc(sizeof(struct Node));
@@ -37,6 +50,7 @@ void push(struct List *list, struct Node *node) {
   }
   else {
     node->next=list->head;
+    list->head->prev=node;
     list->head=node;
   }
 }
@@ -48,17 +62,26 @@ void append(struct List *list, struct Node *node) {
     list->head->prev=list->head->next=0;
   }
   else {
+    node->prev=list->tail;
     list->tail->next=node;
     list->tail=node;
   }
 }
 
 struct Node *pop_tail(struct List *list) {
+  struct Node *tail;
   if(list->tail == 0) return 0;
-  struct Node *tail=list->tail; 
-  list->tail=list->tail->prev;
-  list->tail->next=0;
-  return tail;
+  else if(list->tail == list->head) {
+    tail=list->head;
+    list->head=0;
+    return tail;
+  }
+  else {
+    tail=list->tail; 
+    list->tail=list->tail->prev;
+    list->tail->next=0;
+    return tail;
+  }
 }
 
 void free_list(struct List *list) {
@@ -74,6 +97,7 @@ void printf_list(struct List list, void(*print)(struct Node)) {
   struct Node *node_pointer=list.head;  
   while(node_pointer != 0) {
     print(*node_pointer);
+    printf(" -> ");
     node_pointer=node_pointer->next;
   }
   printf("(nil)\n");
