@@ -19,6 +19,10 @@ struct Snake {
   uint32_t score;
 };
 
-struct Snake *make_empty_snake();
+struct Snake *make_snake(uint32_t x, uint32_t y, char shape);
+struct SnakePart *get_head_part(struct Snake *snake);
+void grow(struct Snake *snake, enum Direction direction);
+void move(struct Snake *snake, enum Direction direction);
+void printf_snake(struct Snake snake);
 void free_snake();
 #endif
