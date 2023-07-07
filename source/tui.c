@@ -12,9 +12,8 @@ bool collide(struct Position pos1, struct Position pos2) {
 struct Game *make_game() {
   struct Game *game=malloc(sizeof(struct Game));
   game->snake=make_snake(20,20,'#');
-  game->food=make_food(22,30,'@');
-  game->width=200;
-  game->height=200;
+  getmaxyx(stdscr, game->height, game->width);
+  game->food=make_food(20,20,'@');
   game->done=false;
   game->direction = RIGHT;
   return game;
@@ -25,7 +24,7 @@ struct Game *init() {
   noecho();
   nodelay(stdscr, TRUE);
   keypad(stdscr, TRUE);
-  timeout(10);
+  timeout(1);
   curs_set(FALSE);
   return make_game();
 }
@@ -52,7 +51,7 @@ void update(struct Game *game) {
   move_snake(game->snake, game->direction);
   if(collide(game->food.pos, get_head_part(game->snake)->pos)) {
     grow(game->snake, game->direction);
-    game->food=make_food(20,20,'@');
+    game->food=make_random_food(game->width,game->height,'@');
   }
 }
 
@@ -71,6 +70,14 @@ void render_food(struct Food food) {
 void render(struct Game *game) {
   render_food(game->food);
   printf_snake(*(game->snake), render_part);
+  move(0,game->width/2);
+  addch('-');
+  move(game->height/2,0);
+  addch('|');
+  move(game->height/2, game->width-1);
+  addch('|');
+  move(game->height-1, game->width/2);
+  addch('-');
   refresh();
 }
 void free_game(struct Game *game) {
