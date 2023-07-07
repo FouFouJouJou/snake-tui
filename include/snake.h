@@ -27,6 +27,7 @@ struct SnakePart *get_head_part(struct Snake *snake);
 void grow(struct Snake *snake);
 void move_snake(struct Snake *snake);
 void set_snake_direction(struct Snake *snake, enum Direction direction);
+enum Direction get_snake_direction(struct Snake *snake);
 void printf_snake(struct Snake snake, void(*print)(void *));
 void free_snake();
 #endif

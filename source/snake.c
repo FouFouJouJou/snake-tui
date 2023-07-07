@@ -7,6 +7,14 @@
 #define Y_SPEED 1
 #define X_SPEED 1
 
+void set_snake_direction(struct Snake *snake, enum Direction direction) {
+    snake->direction=direction;
+}
+
+enum Direction get_snake_direction(struct Snake *snake) {
+  return snake->direction;
+}
+
 struct SnakePart *make_snake_part_with_position(struct Position pos, char shape) {
   struct SnakePart *snake_part=malloc(sizeof(struct SnakePart));
   snake_part->pos=pos;
@@ -60,9 +68,6 @@ struct SnakePart *get_head_part(struct Snake *snake) {
     return snake_part;
 }
 
-void set_snake_direction(struct Snake *snake, enum Direction direction) {
-    snake->direction=direction;
-}
 
 void move_snake(struct Snake *snake) {
   struct Position current_pos =
