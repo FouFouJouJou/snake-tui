@@ -44,15 +44,21 @@ enum Direction input_to_direction(int key, enum Direction default_direction) {
   }
 }
 
-void update(struct Game *game) {
+
+void process_input(struct Game *game) {
   int key=getch();
   if(key == KEY_CLOSE || key == KEY_EXIT || key == KEY_END) {
     game->done=true;
     return;
   }
-  enum Direction new_direction=input_to_direction(key, game->snake->direction);
+  enum Direction new_direction=input_to_direction(key, get_snake_direction(game->snake));
   set_snake_direction(game->snake, new_direction);
+}
+
+void update(struct Game *game) {
+  process_input(game);
   move_snake(game->snake);
+  //process_collision(game);
   if(collide(game->food.pos, get_head_part(game->snake)->pos)) {
     grow(game->snake);
     game->food=make_random_food(game->width,game->height,'@');
