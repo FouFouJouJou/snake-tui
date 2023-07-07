@@ -41,12 +41,12 @@ $(OBJECT_DIR)/main.o: $(SOURCE)/main.c
 	 @echo [100%] compiling main
 
 
-$(OBJECT_DIR)/tui.o: 
+$(OBJECT_DIR)/tui.o: $(SOURCE)/tui.c
 	 @$(COMPILE) $(SOURCE)/tui.c -o $(OBJECT_DIR)/tui.o
 	 @echo [100%] compiling tui
 
 
-$(OBJECT_DIR)/food.o: 
+$(OBJECT_DIR)/food.o: $(SOURCE)/food.c
 	 @$(COMPILE) $(SOURCE)/food.c -o $(OBJECT_DIR)/food.o
 	 @echo [100%] compiling food
 
