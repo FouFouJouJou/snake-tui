@@ -12,13 +12,13 @@ void printf_part(void *data) {
 int main(void) {
   printf("snake test\n");
   struct Snake *snake = make_snake(20, 20, '#');
-  move_snake(snake, DOWN);
+  move_snake(snake);
   printf_snake(*snake, printf_part);
-  move_snake(snake, DOWN);
+  move_snake(snake);
   printf_snake(*snake, printf_part);
-  move_snake(snake, RIGHT);
+  move_snake(snake);
   printf_snake(*snake, printf_part);
-  move_snake(snake, RIGHT);
+  move_snake(snake);
   printf_snake(*snake, printf_part);
   return EXIT_SUCCESS;
 }

@@ -19,13 +19,17 @@ struct Game *make_game() {
   return game;
 }
 
-struct Game *init() {
+void init_curses() {
   initscr();
   noecho();
   nodelay(stdscr, TRUE);
   keypad(stdscr, TRUE);
   timeout(1);
   curs_set(FALSE);
+}
+
+struct Game *init() {
+  init_curses();
   return make_game();
 }
 
@@ -47,8 +51,9 @@ void update(struct Game *game) {
     game->done=true;
     return;
   }
-  game->direction=input_to_direction(key, game->direction);
-  move_snake(game->snake, game->direction);
+  enum Direction new_direction=input_to_direction(key, game->snake->direction);
+  set_snake_direction(game->snake, new_direction);
+  move_snake(game->snake);
   if(collide(game->food.pos, get_head_part(game->snake)->pos)) {
     grow(game->snake, game->direction);
     game->food=make_random_food(game->width,game->height,'@');

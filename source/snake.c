@@ -4,6 +4,8 @@
 #include <list.h>
 #include <position.h>
 #include <snake.h>
+#define Y_SPEED 1
+#define X_SPEED 1
 
 struct SnakePart *make_snake_part_with_position(struct Position pos, char shape) {
   struct SnakePart *snake_part=malloc(sizeof(struct SnakePart));
@@ -25,6 +27,7 @@ struct Snake *make_empty_snake() {
 
 struct Snake *make_snake(uint32_t x, uint32_t y, char shape) {
   struct Snake *snake = make_empty_snake();
+  snake->direction = RIGHT;
   struct SnakePart *snake_part = make_snake_part(x, y, shape);
   append_value(snake->parts, snake_part, sizeof(*snake_part));
   return snake;
@@ -35,16 +38,16 @@ void grow(struct Snake *snake, enum Direction direction) {
     get_head_part(snake)->pos;
   switch(direction) {
     case UP: 
-      current_pos.y-=1;
+      current_pos.y-=Y_SPEED;
       break;
     case DOWN: 
-      current_pos.y+=1;
+      current_pos.y+=Y_SPEED;
       break;
     case LEFT: 
-      current_pos.x-=1;
+      current_pos.x-=X_SPEED;
       break;
     case RIGHT: 
-      current_pos.x+=1;
+      current_pos.x+=X_SPEED;
       break;
   }
   struct SnakePart *new_snake_head=make_snake_part_with_position(current_pos, '#');
@@ -57,22 +60,25 @@ struct SnakePart *get_head_part(struct Snake *snake) {
     return snake_part;
 }
 
+void set_snake_direction(struct Snake *snake, enum Direction direction) {
+    snake->direction=direction;
+}
 
-void move_snake(struct Snake *snake, enum Direction direction) {
+void move_snake(struct Snake *snake) {
   struct Position current_pos =
     get_head_part(snake)->pos;
-  switch(direction) {
+  switch(snake->direction) {
     case UP: 
-      current_pos.y-=1;
+      current_pos.y-=Y_SPEED;
       break;
     case DOWN: 
-      current_pos.y+=1;
+      current_pos.y+=Y_SPEED;
       break;
     case LEFT: 
-      current_pos.x-=1;
+      current_pos.x-=X_SPEED;
       break;
     case RIGHT: 
-      current_pos.x+=1;
+      current_pos.x+=X_SPEED;
       break;
   }
   push(snake->parts, pop_tail(snake->parts));
