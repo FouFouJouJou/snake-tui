@@ -11,7 +11,6 @@ struct Node *make_empty_node() {
   return node;
 }
 
-
 void *get_head_value(struct List *list) {
   return list->head->value;
 }
