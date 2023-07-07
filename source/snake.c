@@ -33,10 +33,10 @@ struct Snake *make_snake(uint32_t x, uint32_t y, char shape) {
   return snake;
 }
 
-void grow(struct Snake *snake, enum Direction direction) {
+void grow(struct Snake *snake) {
   struct Position current_pos =
     get_head_part(snake)->pos;
-  switch(direction) {
+  switch(snake->direction) {
     case UP: 
       current_pos.y-=Y_SPEED;
       break;

@@ -54,7 +54,7 @@ void update(struct Game *game) {
   set_snake_direction(game->snake, new_direction);
   move_snake(game->snake);
   if(collide(game->food.pos, get_head_part(game->snake)->pos)) {
-    grow(game->snake, game->direction);
+    grow(game->snake);
     game->food=make_random_food(game->width,game->height,'@');
   }
 }
