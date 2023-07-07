@@ -93,12 +93,10 @@ void free_list(struct List *list) {
   }
 }
 
-void printf_list(struct List list, void(*print)(struct Node)) {
-  struct Node *node_pointer=list.head;  
+void printf_list(struct List list, void(*print)(void *)) {
+  struct Node *node_pointer=list.head;
   while(node_pointer != 0) {
-    print(*node_pointer);
-    printf(" -> ");
+    print(node_pointer->value);
     node_pointer=node_pointer->next;
   }
-  printf("(nil)\n");
 }
