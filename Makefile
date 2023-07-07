@@ -21,7 +21,7 @@ $(MAIN_EXECUTABLE): $(OBJECT_DIR)/main.o $(OBJECT_DIR)/snake.o\
 	 @$(CC) $(OBJECT_DIR)/main.o $(OBJECT_DIR)/snake.o\
          $(OBJECT_DIR)/tui.o $(OBJECT_DIR)/food.o \
          $(OBJECT_DIR)/list.o $(OBJECT_DIR)/position.o \
-   -o $(MAIN_EXECUTABLE)
+   -o $(MAIN_EXECUTABLE) -lncurses
 	 @echo [100%] linking main
 
 snake_test: $(BUILD_DIR)/snake_test
