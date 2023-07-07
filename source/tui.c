@@ -15,7 +15,6 @@ struct Game *make_game() {
   getmaxyx(stdscr, game->height, game->width);
   game->food=make_food(20,20,'@');
   game->done=false;
-  game->direction = RIGHT;
   return game;
 }
 
