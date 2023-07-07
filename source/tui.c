@@ -1,5 +1,5 @@
 #include <ncurses.h>
-#include <ui.h>
+#include <tui.h>
 
 struct Game *init() {
   return 0;
