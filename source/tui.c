@@ -18,6 +18,9 @@ struct Game *make_game() {
 struct Game *init() {
   initscr();
   noecho();
+  nodelay(stdscr, TRUE);
+  keypad(stdscr, TRUE);
+  timeout(10);
   curs_set(FALSE);
   return make_game();
 }
@@ -35,8 +38,12 @@ enum Direction input_to_direction(int key, enum Direction default_direction) {
 }
 
 void update(struct Game *game) {
-  game->direction=input_to_direction(getch(), game->direction);
-  printw("%s\n", direction_to_string(game->direction)); 
+  int key=getch();
+  if(key == KEY_CLOSE || key == KEY_EXIT || key == KEY_END) {
+    game->done=true;
+    return;
+  }
+  game->direction=input_to_direction(key, game->direction);
   move_snake(game->snake, game->direction);
   //collistion detection with the food
   //if(snake_head_collide(game->food.pos)) {
@@ -53,6 +60,7 @@ void render_part(void *data) {
 
 void render(struct Game *game) {
   printf_snake(*(game->snake), render_part);
+  refresh();
 }
 void free_game(struct Game *game) {
   free_snake(game->snake);
