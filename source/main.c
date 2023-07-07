@@ -4,7 +4,7 @@
 #include <unistd.h>
 #include <ncurses.h>
 
-#define FRAME_RATE (4*3000000/60)
+#define FRAME_RATE (4*1000000/60)
 
 int main(void) {
   struct Game *game = init();
