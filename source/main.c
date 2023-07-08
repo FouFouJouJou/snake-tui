@@ -15,6 +15,8 @@ int main(void) {
     usleep(FRAME_RATE);
     erase();
   }
+  uint32_t score=game->score;
   destroy(game);
+  printf("your final score: %i\n", score);
   return EXIT_SUCCESS;
 }
