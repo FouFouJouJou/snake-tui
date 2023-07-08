@@ -60,26 +60,28 @@ enum Direction input_to_direction(int key, enum Direction default_direction) {
 }
 
 
-void process_input(struct Game *game) {
+uint8_t process_input(struct Game *game) {
   int key=getch();
-  if(key == KEY_CLOSE || key == KEY_EXIT || key == KEY_END) {
-    printf("Bye\n");
+  if(key == 27) {
     game->done=true;
-    return;
+    return END_OF_GAME;
   }
   enum Direction new_direction=input_to_direction(key, get_snake_direction(game->snake));
   set_snake_direction(game->snake, new_direction);
+  return ON_GOING;
 }
 
-void update(struct Game *game) {
-  process_input(game);
-  move_snake(game->snake);
-  //process_collision(game);
+void process_collisions(struct Game *game) {
   if(collide(game->food.pos, get_head_part(game->snake)->pos)) {
     game->score+=1;
     grow(game->snake);
     game->food=make_random_food(game->width,game->height,'@');
   }
+}
+
+void update(struct Game *game) {
+  move_snake(game->snake);
+  process_collisions(game);
 }
 
 void render_part(void *data) {
@@ -113,7 +115,6 @@ void free_game(struct Game *game) {
 }
 
 void destroy(struct Game *game) {
-  (void)game;
   free_game(game);
   endwin();
 }
