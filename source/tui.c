@@ -15,7 +15,22 @@ struct Game *make_game() {
   getmaxyx(stdscr, game->height, game->width);
   game->food=make_food(20,20,'@');
   game->done=false;
+  game->score=0;
   return game;
+}
+void render_border(struct Game *game) {
+  for(uint32_t i=0; i<game->width; ++i) {
+    move(0,i);
+    addch('-');
+    move(game->height-1, i);
+    addch('-');
+  }
+  for(uint32_t i=0; i<game->height; ++i) {
+    move(i,0);
+    addch('|');
+    move(i, game->width-1);
+    addch('|');
+  }
 }
 
 void init_curses() {
@@ -48,6 +63,7 @@ enum Direction input_to_direction(int key, enum Direction default_direction) {
 void process_input(struct Game *game) {
   int key=getch();
   if(key == KEY_CLOSE || key == KEY_EXIT || key == KEY_END) {
+    printf("Bye\n");
     game->done=true;
     return;
   }
@@ -60,6 +76,7 @@ void update(struct Game *game) {
   move_snake(game->snake);
   //process_collision(game);
   if(collide(game->food.pos, get_head_part(game->snake)->pos)) {
+    game->score+=1;
     grow(game->snake);
     game->food=make_random_food(game->width,game->height,'@');
   }
@@ -76,18 +93,18 @@ void render_food(struct Food food) {
   addch(food.shape);
 }
 
+void render_score(struct Game *game) {
+  char str[32];
+  sprintf(str, "%d", game->score);
+  move(game->height/2, game->width/2);
+  printw("%s", str);
+}
 
 void render(struct Game *game) {
+  render_border(game);
+  render_score(game);
   render_food(game->food);
   printf_snake(*(game->snake), render_part);
-  move(0,game->width/2);
-  addch('-');
-  move(game->height/2,0);
-  addch('|');
-  move(game->height/2, game->width-1);
-  addch('|');
-  move(game->height-1, game->width/2);
-  addch('-');
   refresh();
 }
 void free_game(struct Game *game) {
@@ -97,5 +114,6 @@ void free_game(struct Game *game) {
 
 void destroy(struct Game *game) {
   (void)game;
+  free_game(game);
   endwin();
 }

@@ -8,7 +8,7 @@
 struct Game {
   struct Snake *snake;
   struct Food food;
-  uint32_t width, height;
+  uint32_t width, height, score;
   bool done;
 };
 
