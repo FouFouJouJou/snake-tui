@@ -1,1 +1,2 @@
 #+TITLE: Typical snake game using ncurses for terminal user interface
+Merely an exercice to improve upon my ncurses knowledge in the best language ever C.
