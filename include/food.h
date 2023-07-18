@@ -1,6 +1,7 @@
 #ifndef __FOOD_H__
 #define __FOOD_H__
 #include <position.h>
+#define FOOD_CHAR '@'
 
 struct Food {
   struct Position pos;

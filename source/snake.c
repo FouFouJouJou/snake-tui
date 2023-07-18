@@ -58,7 +58,7 @@ void grow(struct Snake *snake) {
       current_pos.x+=X_SPEED;
       break;
   }
-  struct SnakePart *new_snake_head=make_snake_part_with_position(current_pos, '#');
+  struct SnakePart *new_snake_head=make_snake_part_with_position(current_pos, SNAKE_PART_CHAR);
   push_value(snake->parts, new_snake_head, sizeof(*new_snake_head));
 }
 
