@@ -13,7 +13,7 @@ struct Game *make_game() {
   struct Game *game=malloc(sizeof(struct Game));
   game->snake=make_snake(20,20,'#');
   getmaxyx(stdscr, game->height, game->width);
-  game->food=make_food(20,20,'@');
+  game->food=make_random_food(game->width,game->height,'@');
   game->done=false;
   game->score=0;
   return game;
