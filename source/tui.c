@@ -11,9 +11,9 @@ bool collide(struct Position pos1, struct Position pos2) {
 
 struct Game *make_game() {
   struct Game *game=malloc(sizeof(struct Game));
-  game->snake=make_snake(20,20,'#');
+  game->snake=make_snake(20,20, SNAKE_PART_CHAR);
   getmaxyx(stdscr, game->height, game->width);
-  game->food=make_random_food(game->width,game->height,'@');
+  game->food=make_random_food(game->width,game->height, FOOD_CHAR);
   game->done=false;
   game->score=0;
   return game;
@@ -75,7 +75,7 @@ void process_collisions(struct Game *game) {
   if(collide(game->food.pos, get_head_part(game->snake)->pos)) {
     game->score+=1;
     grow(game->snake);
-    game->food=make_random_food(game->width,game->height,'@');
+    game->food=make_random_food(game->width,game->height, FOOD_CHAR);
   }
 }
 
