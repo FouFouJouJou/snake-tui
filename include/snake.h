@@ -2,7 +2,7 @@
 #define __SNAKE_H__
 #include <stdint.h>
 #include <position.h>
-#define SNAKE_PART_CHAR '#'
+#define SNAKE_PART_CHAR '@'
 
 enum Direction {
   UP=0
