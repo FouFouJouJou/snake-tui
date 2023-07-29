@@ -4,9 +4,9 @@ OBJECT_DIR:=./object
 BUILD_DIR:=./build
 INCLUDE_DIR:=./include
 SOURCE:=./source
+C_GNU_SOURCE_FLAG:=-D_GNU_SOURCE
 TEST:=./test
 C_INCLUDE_FLAGS:=-I$(INCLUDE_DIR)
-C_GNU_SOURCE_FLAG:=-D_GNU_SOURCE
 MAIN_EXECUTABLE:=$(BUILD_DIR)/snake-tui
 COMPILE:=$(CC) $(CFLAGS) $(C_GNU_SOURCE_FLAG) $(C_INCLUDE_FLAGS) -c
 
@@ -83,5 +83,5 @@ $(OBJECT_DIR)/list.o: $(SOURCE)/list.c
 
 
 clean:
-	 @echo cleaning
+	 @echo cleaning artifacts
 	 @rm object/* build/*
